@@ -10,7 +10,9 @@ Boxoffice is the ticketing API behind a small venue's website. Customers buy tic
 
 ## Before you start
 
-You need a GitHub account where you can install a GitHub App. Sign in at [app.gitar.ai](https://app.gitar.ai) first and start the GitHub install from there. Your 14-day Pro trial starts when you connect GitHub.
+Use your personal GitHub account, and fork into it rather than into a company organization. Installing a GitHub App on an organization needs an owner's approval, and organizations can turn off Actions on forks. Gitar can also block sign-up from a brand-new GitHub account with no public repos or followers, so use an account you've had for a while.
+
+Sign in at [app.gitar.ai](https://app.gitar.ai) first and start the GitHub install from there. Your 14-day Pro trial starts when you connect GitHub.
 
 ## Set up your fork
 
@@ -19,7 +21,7 @@ You need a GitHub account where you can install a GitHub App. Sign in at [app.gi
 
 ## Connect Gitar
 
-In Gitar, open **Settings > Configuration**, grant Gitar access to your fork, and confirm the fork is listed.
+In Gitar, open **Settings > Configuration**, click **Refresh** under **Repositories**, and confirm your fork is listed. If it's missing, open GitHub's **Settings > Applications**, click **Configure** next to Gitar, add your fork, and refresh again.
 
 ## Open the three pull requests
 
@@ -27,7 +29,7 @@ Create each pull request through GitHub's form in your fork.
 
 1. Open **Pull requests > New pull request**.
 2. Select your fork for both **base repository** and **head repository**. Set **base** to `main` and **compare** to `stage-1`.
-   GitHub can default **base repository** to the upstream `sonar-samples` repo, so make sure you change it to your fork.
+   GitHub can default **base repository** to the upstream `sonar-samples` repo, and the list also shows other people's forks, so pick the one under your username.
 3. Click **Create pull request**. The branch's commit fills in the title and description so keep both and submit the pull request.
 4. Repeat with **compare** set to `stage-2`, then `stage-3`, keeping your fork as both repositories and `main` as the base.
 
@@ -37,7 +39,7 @@ Read the diff while Gitar reviews it, which can take several minutes. Find Gitar
 
 ## Stage 2: teach Gitar your team's rules
 
-Before you read the review, open the pull request's **Files changed** tab and read the two files under `.gitar/`. Then read Gitar's finding, the comment the rule posted, and the **Rules** section of Gitar's dashboard comment.
+Before you read the review, open the pull request's **Files changed** tab and read the two files under `.gitar/`. Then read Gitar's finding and the comment the rule posted. In Gitar's dashboard comment, expand **Verification** to see the rule under **Rules**.
 
 An instruction in `.gitar/review/` changes what the review looks for, while a rule in `.gitar/rules/` makes Gitar take an action when a pull request event matches. This stage is review only, so don't fix or merge it.
 
@@ -61,16 +63,16 @@ To run Stage 3's automated merge yourself, configure these now. Otherwise, just 
    | Require branches to be up to date before merging | Unchecked |
    | Status checks | **Add checks**, type `test`, select **test** (GitHub Actions) |
 
-   Then click **Create**. If `test` doesn't show up in the search, run **Actions > Test > Run workflow** on `main` and search again.
-3. In Gitar, open the behavior settings in **Configuration**, turn on **Auto-approve PRs based on code review**, and leave **Auto-merge PRs after auto-approve** off.
+   Then click **Create**. GitHub may ask you to confirm access with your password, passkey, or two-factor code before it saves the ruleset. If `test` doesn't show up in the search, run **Actions > Test > Run workflow** on `main` and search again.
+3. In Gitar, open **Settings > Configuration**, find your fork under **Repositories**, and open its overrides from the **Overrides** column. Turn on **Auto-approve PRs based on code review**, and leave **Auto-merge PRs after auto-approve** off. That second toggle only appears once auto-approve is on. Use the fork's overrides rather than the **Behavior** settings on the same page, because those apply to every repository Gitar can see.
 
 Leave Gitar's auto-merge setting off so Stages 1 and 2 stay open. Later, the `gitar auto-merge:on` command enables merging for the Stage 3 pull request. That command needs auto-approve on, and GitHub still waits for the required `test` check before it merges.
 
 | Where | Setting | Value |
 |---|---|---|
 | GitHub, your fork | Allow auto-merge | On for the full Stage 3 cycle |
-| Gitar, your fork's behavior settings | Auto-approve PRs based on code review | On |
-| Gitar, your fork's behavior settings | Auto-merge PRs after auto-approve | Off |
+| Gitar, your fork's overrides | Auto-approve PRs based on code review | On |
+| Gitar, your fork's overrides | Auto-merge PRs after auto-approve | Off |
 
 ## Stage 3: CI failure, then auto-apply and auto-merge
 
@@ -83,22 +85,26 @@ gitar auto-apply:on
 gitar auto-merge:on
 ```
 
+Paste them exactly as shown. A space after the colon (`auto-apply: on`) means Gitar doesn't recognize the command.
+
 Check that Gitar's commit changed application code. With merge controls configured, Gitar approves the code and GitHub waits for the required `test` check to turn green before merging.
 
 ## Troubleshooting
 
 | Problem | What to do |
 |---|---|
+| Your fork only has `main` | Delete the fork (its **Settings** page, at the bottom), then fork again with **Copy the `main` branch only** unchecked |
+| Pull request opened on `sonar-samples` instead of your fork, or Gitar says it isn't allowed to push to a forked pull request | Close it. Open **New pull request** again and select your fork for both **base repository** and **head repository** |
 | Review is taking longer than expected | Check Gitar's dashboard. If a review is still running, wait for it to finish. If no review is running, comment `gitar review` |
-| No `test` check on a pull request | Enable Actions in your fork, then close and reopen the pull request |
+| No `test` check on a pull request | Enable Actions in your fork, then close and reopen the pull request. If your organization has disabled Actions, fork into your personal account instead |
 | Stage 3 shows no CI analysis | Comment `gitar review` |
-| Gitar's dashboard says auto-merge wasn't armed | Check GitHub's Allow auto-merge and required `test` check, Gitar's auto-approve setting, and the Stage 3 `gitar auto-merge:on` command |
+| Stage 3 is approved but doesn't merge | Check GitHub's Allow auto-merge and required `test` check, auto-approve in your fork's Gitar overrides, and that your Stage 3 comment has no space after either colon |
 
 ## Take it further
 
 - Stage 3 changes your `main` when it merges, so be aware of that if you want to re-run the workshop.
-- To make the Stage 2 instruction and rule permanent, copy the `.gitar/` folder from the `stage-2` branch to `main` in your fork. The instruction and rule then apply to every pull request. Add a rule of your own beside them.
-- Gitar reads your coding agent's instruction files: `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, and files one level deep in `.cursor/rules/` and `.claude/rules/`. Add an `AGENTS.md` with one team rule, open a pull request, and watch the review apply it.
+- To make the Stage 2 instruction and rule permanent, copy the `.gitar/` folder from the `stage-2` branch to `main` in your fork through a pull request. The instruction and rule then apply to every pull request. Add a rule of your own beside them.
+- Gitar reads your coding agent's instruction files from the repo root: `AGENTS.md`, `CLAUDE.md`, `.cursorrules`, and files one level deep in `.cursor/rules/` and `.claude/rules/`. Add an `AGENTS.md` with one team rule, open a pull request, and watch the review apply it.
 - Add a skill at `.gitar/skills/<name>/SKILL.md` with `name` and `description` frontmatter, then trigger it: `gitar run the <name> skill on this`. Gitar also reads skills from `.claude/skills/`, `.agents/skills/`, and `.github/skills/`.
 - Write approval criteria in `.gitar/config/approve.md` and merge criteria in `.gitar/config/merge.md`. Gitar reads `merge.md` from the default branch only, so a pull request can't grant itself auto-merge.
 - Connect Slack or Jira under **Settings > Integrations**.
