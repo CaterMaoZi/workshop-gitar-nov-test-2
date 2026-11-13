@@ -129,6 +129,7 @@ The box office API, the gate scanner firmware and the background worker are rele
 * A ticket is a signed JSON document. The scanner reads the `v` field and the signature only.
 * The API accepts payload schema `v1`. Requests that carry an unknown schema version are rejected with `400 unsupported_schema`.
 * The worker re-validates the same schema before it writes the gate log, so the three components always share one release tag.
+* The gate log entry stores the ticket id, the event id and the scan result code.
 
 The compatibility matrix for a deployment is published on the internal operations page and is keyed by the release tag shown on the health endpoint.
 
