@@ -63,3 +63,15 @@ def verify_gate_code(secret: str, code: str, max_age: int = 0) -> GateCode:
     if not isinstance(payload, dict) or {"ticket_id", "event_id"} - payload.keys():
         raise QRCodeError("malformed gate code payload")
     return GateCode(ticket_id=str(payload["ticket_id"]), event_id=str(payload["event_id"]))
+
+
+def verify_gate_code_max_age(secret: str, code: str, seconds: int) -> GateCode:
+    """Verify a v2 gate code that must not be older than ``seconds``.
+
+    Used by the gate console when a code is re-issued from the mobile app; the
+    accepted window follows the ``loads(max_age=N)`` row of the matrix for the
+    pinned ``itsdangerous`` line.
+    """
+    if seconds <= 0:
+        raise ValueError("seconds must be positive")
+    return verify_gate_code(secret, code, max_age=seconds)

@@ -25,3 +25,13 @@ def test_rejects_wrong_secret():
 def test_expiring_code_accepts_fresh_payload():
     code = sign_gate_code("s3cret", "tkt_1", "evt_jazz")
     assert verify_gate_code("s3cret", code, max_age=300) == GateCode(ticket_id="tkt_1", event_id="evt_jazz")
+
+
+def test_verify_gate_code_max_age_window():
+    from boxoffice.ticketsign import verify_gate_code_max_age
+
+    secret = "test-secret"
+    code = sign_gate_code(secret, "t-1", "e-1")
+    got = verify_gate_code_max_age(secret, code, 3600)
+    assert got.ticket_id == "t-1"
+    assert got.event_id == "e-1"
