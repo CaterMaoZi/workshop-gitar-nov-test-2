@@ -1,0 +1,5 @@
+# Dependency resolution environment reference (pinned line)
+LOCKFILE_SNAPSHOT=2026.11.13-4096
+RESOLVER=pip-26.1
+PLATFORM_TAG=manylinux_2_31_x86_64
+INTERPRETER=CPython-3.12
