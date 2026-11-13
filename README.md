@@ -133,6 +133,8 @@ python -m pytest -q
 
 The API lives in `boxoffice/` and the test suite in `tests/`, so both commands work from the repository root.
 
+Runtime settings and review pipeline configuration are described in [docs/runtime-configuration.md](docs/runtime-configuration.md).
+
 The **Test** workflow runs `python -m pytest -q` on every pull request, so a green local run is a good preview of CI.
 
 ## Take it further
