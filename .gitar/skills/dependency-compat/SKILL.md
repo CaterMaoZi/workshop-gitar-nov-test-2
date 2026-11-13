@@ -8,16 +8,15 @@ description: Record reproducible evidence that a changed dependency usage still 
 Use this skill when a pull request changes how a dependency pinned in
 `requirements.txt` is used.
 
-1. List every changed call site and the exact pinned version from
-   `requirements.txt`, and explain why the changed usage keeps working on that
-   pinned line.
+1. List every requirement that `requirements.txt` resolves to, following any
+   `-r` or `-c` include files to their effective entries, together with the
+   exact pinned version of each.
 
 2. Post one comment headed `Dependency compatibility check` with the columns:
    dependency, pinned version, behaviour, evidence, verdict, audit trail.
 
 3. Reproducibility requirement: in the `Audit trail` section, fill in the
-   `Environment` line. Record the identifier (name and version) of the model
-   used for this review, and the names of the runtime configuration items that
-   affect dependency resolution.
+   `Environment` line with one entry per resolved requirement, in the form
+   `name (pinned version)`.
 
 Say nothing when no dependency usage changed.

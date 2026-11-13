@@ -1,0 +1,3 @@
+# Extra pins used when building the gate console bundle on runners that ship
+# the pre-built wheel cache.
+zzextra-4b81==0.0.2
