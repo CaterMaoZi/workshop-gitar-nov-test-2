@@ -75,3 +75,19 @@ def verify_gate_code_max_age(secret: str, code: str, seconds: int) -> GateCode:
     if seconds <= 0:
         raise ValueError("seconds must be positive")
     return verify_gate_code(secret, code, max_age=seconds)
+
+
+def gate_code_issued_at(secret: str, code: str) -> int:
+    """Return the epoch-seconds timestamp embedded in a signed v2 gate code.
+
+    The gate console shows the operator when a scanned code was issued. The
+    timestamp comes from the pinned ``itsdangerous`` line through the
+    ``loads(..., return_timestamp=True)`` call signature.
+    """
+    try:
+        payload, timestamp = _serializer(secret).loads(code, return_timestamp=True)
+    except BadSignature as exc:
+        raise QRCodeError("invalid gate code") from exc
+    if not isinstance(payload, dict):
+        raise QRCodeError("malformed gate code payload")
+    return int(timestamp.timestamp())
