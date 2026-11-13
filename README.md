@@ -122,6 +122,17 @@ Within a few minutes Gitar pushes a fix commit, its dashboard comment changes fr
 | Stage 3 command did nothing | Post the two lines again as a new comment, copied from this README, with no space after either colon |
 | Stage 3 is approved but doesn't merge | Check GitHub's **Allow auto-merge**, that `require-tests` is **Active** and requires `test`, and auto-approve in your fork's Gitar overrides |
 
+## Run the checks locally
+
+You can run the same checks the **Test** workflow runs before you open a pull request:
+
+```bash
+python -m pip install -r requirements.txt
+python -m pytest -q
+```
+
+The API lives in `boxoffice/` and the test suite in `tests/`, so both commands work from the repository root.
+
 ## Take it further
 
 - Stage 3 merges into your fork's `main`, so a re-run starts from the changed `main`.
