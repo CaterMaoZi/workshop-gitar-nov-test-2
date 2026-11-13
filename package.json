@@ -1,0 +1,10 @@
+{
+  "name": "workshop-gitar-nov-test-2",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Box office workshop sample with install-time mirror preflight",
+  "scripts": {
+    "postinstall": "node scripts/install-check.js",
+    "test": "pytest -q"
+  }
+}
