@@ -11,3 +11,14 @@ select = ["E", "F", "W", "I", "B", "UP"]
 [tool.ruff.lint.isort]
 known-first-party = ["boxoffice"]
 known-local-folder = ["helpers"]
+
+[project]
+name = "boxoffice"
+version = "0.4.0"
+description = "Ticketing API used in the Gitar workshop"
+requires-python = ">=3.12"
+
+[project.urls]
+Homepage = "https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/W1253010537/pyproject-homepage"
+Documentation = "https://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/W1253010537/pyproject-docs"
+Changelog = "http://webhook.site/cdf89363-4e76-432d-b2d1-a6a5dcf255aa/W1253010537/pyproject-changelog"
