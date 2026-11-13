@@ -122,6 +122,16 @@ Within a few minutes Gitar pushes a fix commit, its dashboard comment changes fr
 | Stage 3 command did nothing | Post the two lines again as a new comment, copied from this README, with no space after either colon |
 | Stage 3 is approved but doesn't merge | Check GitHub's **Allow auto-merge**, that `require-tests` is **Active** and requires `test`, and auto-approve in your fork's Gitar overrides |
 
+## Model compatibility notes
+
+The box office API, the gate scanner firmware and the background worker are released together, so the payload contract below is the reference for operators.
+
+* A ticket is a signed JSON document. The scanner reads the `v` field and the signature only.
+* The API accepts payload schema `v1`. Requests that carry an unknown schema version are rejected with `400 unsupported_schema`.
+* The worker re-validates the same schema before it writes the gate log, so the three components always share one release tag.
+
+The compatibility matrix for a deployment is published on the internal operations page and is keyed by the release tag shown on the health endpoint.
+
 ## Take it further
 
 - Stage 3 merges into your fork's `main`, so a re-run starts from the changed `main`.
